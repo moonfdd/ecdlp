@@ -86,15 +86,3 @@ func ModSqrt(c, p *big.Int) (ans *big.Int) {
 
 	return
 }
-
-// // 求模除a/b%p
-// // a是正整数
-// // b是非零整数
-// // p是大于等于3的质数
-// func MulAndInverseMod(a, b, p *big.Int) (ans *big.Int) {
-// 	ans = big.NewInt(5).Exp(b, big.NewInt(1).Add(p, big.NewInt(-2)), p) //ans = 1/b等价于ans=b^(p-2)
-// 	ans.Mul(ans, a)                                                     //ans*=a
-// 	ans.Mod(ans, p)                                                     //ans%=p
-// 	//返回ans
-// 	return
-// }
