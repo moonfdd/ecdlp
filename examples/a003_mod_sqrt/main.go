@@ -5,6 +5,8 @@ import (
 	"math/big"
 )
 
+// https://www.cnblogs.com/resorie/p/xxxxxxxxx-equations-modulo-p.html
+// https://www.cnblogs.com/Spare-No-Effort/p/15916243.html
 func main() {
 	// 测试Cipolla
 	if true {
