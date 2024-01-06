@@ -57,11 +57,4 @@ releases/
 
 .idea/
 
-examples/a002_mul_and_inverse_mod/
-examples/a003_mod_sqrt/
-examples/a004_mod_cbrt/
-examples/a005_curve/
-examples/a006_dlp/
-examples/a007_dlp_bsgs/
-examples/a008_prime_aks/
-examples/c/
+examples/b/
