@@ -8,12 +8,12 @@ import (
 func main() {
 	if true {
 		//自定义快速幂PowerMod
-		r := PowerMod(big.NewInt(5), big.NewInt(3), big.NewInt(7))
+		r := PowerMod(big.NewInt(5), big.NewInt(9), big.NewInt(7))
 		fmt.Println(r)
 	}
 	if true {
 		// Exp就是求快速幂
-		r := big.NewInt(0).Exp(big.NewInt(5), big.NewInt(3), big.NewInt(7))
+		r := big.NewInt(0).Exp(big.NewInt(5), big.NewInt(9), big.NewInt(7))
 		fmt.Println(r)
 	}
 	fmt.Println("")
