@@ -8,7 +8,7 @@ import (
 func main() {
 	//单个
 	if true {
-		for i := 1; i < 11; i++ {
+		for i := 1; i <= 9; i++ {
 			a := big.NewInt(0).SetInt64(int64(i))
 			p := big.NewInt(11)
 			fmt.Print(OneInverse(a, p), " ")
@@ -18,7 +18,7 @@ func main() {
 
 	// 批量
 	if true {
-		ans := ManyInverse(10, 11)
+		ans := ManyInverse(9, 11)
 		fmt.Println(ans)
 	}
 	fmt.Println()
@@ -56,9 +56,9 @@ func OneInverse(a, p *big.Int) (ans *big.Int) {
 // n为1到p-1的整数
 // p	为素数
 func ManyInverse(n, p int) (ans []int) {
-	ans = make([]int, p)
-	ans[1] = 1
-	for i := 2; i <= p-1; i++ {
+	ans = make([]int, n+1)
+	ans[1] = 1 //1的-1次方等于1
+	for i := 2; i <= n; i++ {
 		ans[i] = ((p - p/i) * ans[p%i]) % p
 	}
 	ans = ans[1:]
