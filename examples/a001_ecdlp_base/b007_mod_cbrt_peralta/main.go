@@ -43,6 +43,23 @@ func main() {
 		}
 		return
 	}
+	if false {
+		p := big.NewInt(11)
+		for a := big.NewInt(1); a.Cmp(big.NewInt(0).Add(p, big.NewInt(-1))) <= 0; a.Add(a, big.NewInt(1)) {
+			fmt.Println("a = ", a, "-------------")
+			r := ModCbrt(a, p)
+			fmt.Println("答案：", r)
+			for i := 0; i < len(r); i++ {
+				if big.NewInt(0).Exp(r[i], big.NewInt(3), p).Cmp(a) == 0 {
+
+				} else {
+					fmt.Println("答案错误", r[i], "a = ", big.NewInt(0).Exp(r[i], big.NewInt(3), p))
+					return
+				}
+			}
+		}
+		return
+	}
 
 	if true {
 		p := big.NewInt(997)
@@ -91,7 +108,7 @@ func ModCbrt(a, p *big.Int) (ans []*big.Int) {
 	}
 	count := ModCbrtCount(a, p)
 	if count == 1 { //有1个解
-		t := big.NewInt(0).Lsh(p, 1)
+		t := big.NewInt(0).Lsh(p, 1) //t=(2p-1)/3
 		t.Mod(t, p)
 		t = t.Add(t, big.NewInt(-1))
 		t.Mod(t, p)
@@ -146,10 +163,10 @@ func ModCbrt(a, p *big.Int) (ans []*big.Int) {
 }
 
 type Ring struct {
-	a *big.Int
-	b *big.Int
-	c *big.Int
-	w *big.Int
+	a *big.Int //实部
+	b *big.Int //i的虚部
+	c *big.Int //i^2的虚部
+	w *big.Int //i^3的值
 }
 
 // 复数乘法

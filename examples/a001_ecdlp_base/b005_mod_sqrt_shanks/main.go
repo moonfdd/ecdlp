@@ -39,7 +39,7 @@ func main() {
 
 // 求模平方根的个数
 func ModSqrtCount(a, p *big.Int) int {
-	t := big.NewInt(0).Add(p, big.NewInt(-1))
+	t := big.NewInt(0).Add(p, big.NewInt(-1)) //t=(p-1)/2
 	t.Rsh(t, 1)
 	if big.NewInt(0).Exp(a, t, p).Cmp(big.NewInt(1)) == 0 {
 		return 2
@@ -53,13 +53,18 @@ func ModSqrtCount(a, p *big.Int) int {
 func ModSqrt(a, p *big.Int) (ans []*big.Int) {
 	ans = make([]*big.Int, 0)
 	x := big.NewInt(0)
+
+	//a==0
 	if a.Cmp(big.NewInt(0)) == 0 {
 		ans = append(ans, x)
 		return
 	}
+
+	//欧拉判别法
 	if ModSqrtCount(a, p) == 0 {
 		return
 	}
+
 	//存在模平方根，拆解成s和t
 	//p-1=s*(2^t)  s是奇数
 	t := 0
