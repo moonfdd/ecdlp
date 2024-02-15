@@ -57,7 +57,7 @@ func main() {
 	x2.Mod(x2, cc.P)
 	x3 := big.NewInt(0).Mul(x2, pcycle)
 	x3.Mod(x3, cc.P)
-	fmt.Println("三个坐标x：")
+	fmt.Println("根据周期算出来的三个坐标x：")
 	fmt.Println(Px)
 	fmt.Println(x2)
 	fmt.Println(x3)
@@ -67,7 +67,7 @@ func main() {
 	s2.Mod(s2, cc.N)
 	s3 := big.NewInt(0).Mul(s2, ncycle)
 	s3.Mod(s3, cc.N)
-	fmt.Println("三个私钥：", s, s2, s3)
+	fmt.Println("根据周期算出来的三个私钥：", s, s2, s3)
 	fmt.Println("-----------")
 	//根据3个私钥计算坐标点
 	fmt.Println("根据3个私钥求坐标点：")

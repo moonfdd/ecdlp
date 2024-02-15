@@ -1,0 +1,2 @@
+离散对数 https://en.wikipedia.org/wiki/Discrete_logarithm	 
+婴儿步 巨人步、波拉德罗、波拉德袋鼠、波利格-赫尔曼、指数演算、功能场筛
