@@ -19,7 +19,10 @@ func SieveOfSundaram(n int) {
 	for i := 0; i <= nNew; i++ {
 		marked[i] = false
 	}
-
+	if ISPEINT {
+		fmt.Print("m1:")
+	}
+	printSlice(marked)
 	// Main logic of Sundaram. Mark all numbers of the
 	// form i + j + 2ij as true where 1 <= i <= j
 	for i := 1; i <= nNew; i++ {
@@ -27,6 +30,10 @@ func SieveOfSundaram(n int) {
 			marked[i+j+2*i*j] = true
 		}
 	}
+	if ISPEINT {
+		fmt.Print("m2:")
+	}
+	printSlice(marked)
 
 	// Since 2 is a prime number
 	if n > 2 {
@@ -40,6 +47,21 @@ func SieveOfSundaram(n int) {
 			fmt.Print(2*i+1, " ")
 		}
 	}
+}
+
+const ISPEINT = false
+
+func printSlice(s []bool) {
+
+	if !ISPEINT {
+		return
+	}
+	for i := 0; i < len(s); i++ {
+		if !s[i] {
+			fmt.Printf("%d ", 2*i+1)
+		}
+	}
+	fmt.Println()
 }
 
 // https://www.geeksforgeeks.org/sieve-sundaram-print-primes-smaller-n/?ref=lbp
