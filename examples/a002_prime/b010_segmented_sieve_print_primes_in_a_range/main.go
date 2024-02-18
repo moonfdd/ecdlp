@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 const (
 	maxN       = 10000
@@ -26,7 +28,6 @@ func prepareSieve() {
 			primesList = append(primesList, i)
 		}
 	}
-
 }
 
 func primesInRange(m, n int) {
@@ -52,6 +53,7 @@ func primesInRange(m, n int) {
 		if i == p {
 			i += p
 		}
+
 		// marking all the multiples of p as composite (except p itself)
 		for ; i <= n; i += p {
 			composite[i-m] = true
@@ -68,5 +70,5 @@ func primesInRange(m, n int) {
 // https://www.geeksforgeeks.org/segmented-sieve-print-primes-in-a-range/?ref=lbp
 func main() {
 	prepareSieve()
-	primesInRange(50, 100)
+	primesInRange(47, 101)
 }
