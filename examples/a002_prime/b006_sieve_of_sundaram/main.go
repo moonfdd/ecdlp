@@ -16,9 +16,9 @@ func SieveOfSundaram(n int) {
 	marked := make([]bool, nNew+1)
 
 	// Initialize all elements as not marked
-	for i := 0; i <= nNew; i++ {
-		marked[i] = false
-	}
+	// for i := 0; i <= nNew; i++ {
+	// 	marked[i] = false
+	// }
 	if ISPEINT {
 		fmt.Print("m1:")
 	}
@@ -49,7 +49,7 @@ func SieveOfSundaram(n int) {
 	}
 }
 
-const ISPEINT = false
+const ISPEINT = true
 
 func printSlice(s []bool) {
 

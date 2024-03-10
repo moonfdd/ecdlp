@@ -83,7 +83,7 @@ func SieveOfAtkin(limit int) {
 	fmt.Println()
 }
 
-const ISPEINT = true
+const ISPEINT = false
 
 func printSlice(s []bool) {
 

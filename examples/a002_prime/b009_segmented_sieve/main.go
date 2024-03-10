@@ -55,9 +55,9 @@ func segmentedSieve(n int) {
 
 		for _, p := range prime {
 			// loLim := int(math.Floor(float64(low)/float64(p)) * float64(p))
-			loLim := (low + p - 1) / p * p
+			loLim := (low + p - 1) / p * p //(11+2-1)/2*2=(13-1)/2*2=12
 
-			for j := loLim; j < high; j += p {
+			for j := getMax(loLim, p*p); j < high; j += p {
 				mark[j-low] = true
 			}
 		}
@@ -76,11 +76,19 @@ func segmentedSieve(n int) {
 	}
 }
 
-const ISPEINT = true
+func getMax(a, b int) int {
+	if a > b {
+		return a
+	} else {
+		return b
+	}
+}
+
+const ISPEINT = false
 
 // https://www.geeksforgeeks.org/segmented-sieve/?ref=lbp 分段筛
 func main() {
-	n := 101
+	n := 100
 	fmt.Printf("Primes smaller than %d: ", n)
 	segmentedSieve(n)
 }

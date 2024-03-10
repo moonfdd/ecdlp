@@ -33,9 +33,9 @@ func SieveOfEuler1(N int) []bool {
 
 const maxn = 100000000
 
-var pri [maxn]int
-var now = 0
-var vis [maxn]bool
+var pri [maxn]int  //素数表
+var now = 0        //素数表中的素数个数
+var vis [maxn]bool //标记表
 
 // 含break
 func SieveOfEuler2(n int) {
@@ -46,7 +46,7 @@ func SieveOfEuler2(n int) {
 			now++
 		}
 		nDivI := n / i
-		for j := 1; j <= now && pri[j] <= nDivI; j++ {
+		for j := 0; j < now && pri[j] <= nDivI; j++ {
 			vis[pri[j]*i] = true
 
 			if i%pri[j] == 0 {
@@ -58,7 +58,7 @@ func SieveOfEuler2(n int) {
 
 // https://www.geeksforgeeks.org/sieve-eratosthenes-0n-time-complexity/?ref=lbp
 func main() {
-	if true {
+	if false {
 		fmt.Println("最小素因数表")
 		N := 100
 
@@ -77,7 +77,7 @@ func main() {
 
 		SieveOfEuler2(N)
 
-		fmt.Println(pri[0 : now+1])
+		fmt.Println(pri[0:now])
 		return
 	}
 }
