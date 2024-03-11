@@ -3,53 +3,44 @@ package main
 import (
 	"fmt"
 	"math/big"
+
+	"github.com/moonfdd/ecdlp"
 )
 
-func MillerRabbin(a, num *big.Int) bool {
+func SoloveyStrassen(a, num *big.Int) bool {
 	if num.Cmp(big.NewInt(1)) <= 0 {
 		return false
 	}
 	if num.Cmp(big.NewInt(2)) == 0 {
 		return true
 	}
-	t := big.NewInt(0)
-	u := big.NewInt(0).Sub(num, big.NewInt(1))
-	for big.NewInt(0).And(u, big.NewInt(1)).Cmp(big.NewInt(0)) == 0 {
-		t.Add(t, big.NewInt(1))
-		u.Rsh(u, 1)
-	}
-	x := big.NewInt(0).Exp(a, u, num)
-	var xtemp *big.Int
-	for i := big.NewInt(0); i.Cmp(t) < 0; i.Add(i, big.NewInt(1)) {
-		xtemp = big.NewInt(0).Exp(x, big.NewInt(2), num)
-		if xtemp.Cmp(big.NewInt(1)) == 0 && x.Cmp(big.NewInt(1)) != 0 && x.Cmp(big.NewInt(0).Sub(num, big.NewInt(1))) != 0 {
-			return false
-		}
-		x.Set(xtemp)
-	}
-	if x.Cmp(big.NewInt(1)) != 0 {
+	if num.Bit(0) == 0 {
 		return false
 	}
-	return true
+	j := ecdlp.Jacobi(a, num)
+	if j.Cmp(big.NewInt(0)) == 0 {
+		// fmt.Println("a", a, "num", num, "j", j)
+		return false
+	}
+	j.Mod(j, num)
+	t := big.NewInt(0).Add(num, big.NewInt(-1))
+	t.Rsh(t, 1)
+	if big.NewInt(0).Exp(a, t, num).Cmp(j) == 0 {
+		return true
+	} else {
+		return false
+	}
 }
 
 func main() {
-	if false {
-		nn := big.NewInt(0)
-		nn.SetString("3317044064679887385961981", 10)
-		nn.SetInt64(int64(nn.BitLen()))
-		nn.SetInt64(int64(nn.BitLen()))
-		fmt.Println(nn)
-		return
-	}
 
-	if false {
+	if true {
 		fmt.Println("以2为底")
 		left := big.NewInt(4)
 		count := 0
 		right := big.NewInt(100000)
 		for num := big.NewInt(1).Set(left); num.Cmp(right) <= 0; num.Add(num, big.NewInt(1)) {
-			r1 := MillerRabbin(big.NewInt(2), num)
+			r1 := SoloveyStrassen(big.NewInt(2), num)
 			r2 := num.ProbablyPrime(0)
 			if r1 == r2 {
 
@@ -67,14 +58,13 @@ func main() {
 		fmt.Println("错判次数", count)
 		return
 	}
-
-	if false {
+	if true {
 		fmt.Println("以3为底")
 		left := big.NewInt(4)
 		count := 0
 		right := big.NewInt(100000)
 		for num := big.NewInt(1).Set(left); num.Cmp(right) <= 0; num.Add(num, big.NewInt(1)) {
-			r1 := MillerRabbin(big.NewInt(3), num)
+			r1 := SoloveyStrassen(big.NewInt(3), num)
 			r2 := num.ProbablyPrime(0)
 			if r1 == r2 {
 
@@ -108,7 +98,7 @@ func main() {
 				sqnum.Set(num)
 			}
 			for a := big.NewInt(2); a.Cmp(sqnum) <= 0; a.Add(a, big.NewInt(1)) {
-				r1 = MillerRabbin(a, num)
+				r1 = SoloveyStrassen(a, num)
 				if !r1 {
 					break
 				}
