@@ -15,6 +15,7 @@ func main() {
 				fmt.Print(r, " ")
 			}
 		}
+		return
 	}
 	fmt.Println("")
 }

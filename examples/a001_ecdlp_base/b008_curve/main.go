@@ -4,6 +4,8 @@ import (
 	"encoding/hex"
 	"fmt"
 	"math/big"
+	"sort"
+	"strconv"
 
 	"github.com/btcsuite/btcd/btcec/v2"
 	"github.com/moonfdd/ecdlp"
@@ -11,9 +13,13 @@ import (
 
 // https://www.secg.org/sec2-v2.pdf
 func main() {
+	if true {
+		fmt.Println(big.NewInt(0).Exp(big.NewInt(62), big.NewInt(3), big.NewInt(79)))
+		return
+	}
 
 	//自定义椭圆曲线y^2 ≡ x^3+7 mod 79
-	if false {
+	if true {
 		cc := &ecdlp.CurveParams{}
 		cc.A = big.NewInt(0)
 		cc.B = big.NewInt(7)
@@ -22,16 +28,42 @@ func main() {
 		cc.H = big.NewInt(1)
 		cc.Gx = big.NewInt(27)
 		cc.Gy = big.NewInt(16)
-
+		cc.Gx = big.NewInt(1)
+		cc.Gy = big.NewInt(18)
+		mapa := make(map[string]int)
+		maps := make(map[string]int)
+		sl := make([]string, 0)
+		ssl := make([]string, 0)
 		for s := big.NewInt(1); s.Cmp(big.NewInt(66)) <= 0; s.Add(s, big.NewInt(1)) {
 			Rx, Ry := cc.GetQ(s)
-			fmt.Println(Rx.Text(10), Ry.Text(10))
+			ss := big.NewInt(0).Mul(Ry, Ry)
+			ss.Mod(ss, cc.P)
+			fmt.Println(s, Rx.Text(10), Ry.Text(10), ss)
+			if mapa[Rx.Text(10)] == 0 {
+				sl = append(sl, Rx.Text(10))
+			}
+			mapa[Rx.Text(10)]++
+
+			if maps[ss.Text(10)] == 0 {
+				ssl = append(ssl, ss.Text(10))
+			}
+			maps[ss.Text(10)]++
 		}
+		fmt.Println(mapa)
+		fmt.Println(sl)
+
+		fmt.Println(maps)
+		sort.Slice(ssl, func(i, j int) bool {
+			a1, _ := strconv.Atoi(ssl[i])
+			a2, _ := strconv.Atoi(ssl[j])
+			return a1 <= a2
+		})
+		fmt.Println(ssl)
 		return
 	}
 
 	//对数器
-	if true {
+	if false {
 		cc := &ecdlp.CurveParams{}
 		cc.A = big.NewInt(0)
 		cc.B = big.NewInt(7)

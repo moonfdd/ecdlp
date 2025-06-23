@@ -19,7 +19,6 @@ func SoloveyStrassen(a, num *big.Int) bool {
 	}
 	j := ecdlp.Jacobi(a, num)
 	if j.Cmp(big.NewInt(0)) == 0 {
-		// fmt.Println("a", a, "num", num, "j", j)
 		return false
 	}
 	j.Mod(j, num)

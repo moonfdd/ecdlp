@@ -8,6 +8,8 @@ type LucasParam struct {
 }
 
 func (that *LucasParam) GetUnAndVnMod(k *big.Int, N *big.Int) (*big.Int, *big.Int) {
+	k = big.NewInt(0).Set(k)
+	N = big.NewInt(0).Set(N)
 	if k.Cmp(big.NewInt(0)) == 0 {
 		return big.NewInt(0), big.NewInt(2)
 	}
@@ -59,6 +61,7 @@ func (that *LucasParam) GetUnAndVnMod(k *big.Int, N *big.Int) (*big.Int, *big.In
 }
 
 func (that *LucasParam) GetUnAndVn(k *big.Int) (*big.Int, *big.Int) {
+	k = big.NewInt(0).Set(k)
 	if k.Cmp(big.NewInt(0)) == 0 {
 		return big.NewInt(0), big.NewInt(2)
 	}

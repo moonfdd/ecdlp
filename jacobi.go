@@ -57,24 +57,25 @@ func Jacobi(a *big.Int, n *big.Int) *big.Int {
 		return ans
 	}
 
-	//a和n的绝对值必都大于等于2
+	// a和n的绝对值必都大于等于2
+	// 把负数项变成正数项
 
-	//a<0
+	// a<0
 	if a.Cmp(big.NewInt(0)) < 0 {
 		return big.NewInt(0).Mul(Jacobi(big.NewInt(-1), n), Jacobi(big.NewInt(0).Neg(a), n))
 	}
 
-	//n<0，直接取反
+	// n<0，直接取反
 	if n.Cmp(big.NewInt(0)) < 0 {
 		n.Neg(n)
 	}
 
-	//最大公约数
+	// 最大公约数
 	if new(big.Int).GCD(nil, nil, a, n).Cmp(big.NewInt(1)) > 0 {
 		return big.NewInt(0)
 	}
 
-	if n.Bit(0) == 0 { //n是偶数
+	if n.Bit(0) == 0 { //n是偶数，拆分母
 		if n.Cmp(big.NewInt(2)) == 0 {
 			am := big.NewInt(0).Mod(a, big.NewInt(8))
 			if am.Cmp(big.NewInt(3)) == 0 || am.Cmp(big.NewInt(5)) == 0 {
@@ -86,6 +87,8 @@ func Jacobi(a *big.Int, n *big.Int) *big.Int {
 		n.Rsh(n, 1)
 		return big.NewInt(0).Mul(Jacobi(a, big.NewInt(2)), Jacobi(a, n))
 	}
+
+	// return big.NewInt(int64(big.Jacobi(a, n)))
 
 	//通例n>=3的奇数
 	i := big.NewInt(0)

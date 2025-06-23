@@ -16,6 +16,14 @@ func main() {
 	cc.H = big.NewInt(1)
 	cc.Gx = fromHex("79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798")
 	cc.Gy = fromHex("483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8")
+
+	// cc.A = big.NewInt(0)
+	// cc.B = big.NewInt(7)
+	// cc.P = big.NewInt(79)
+	// cc.N = big.NewInt(67)
+	// cc.H = big.NewInt(1)
+	// cc.Gx = big.NewInt(27)
+	// cc.Gy = big.NewInt(16)
 	//求周期pcycle
 	pcycle := big.NewInt(0)
 	if true {
@@ -42,6 +50,7 @@ func main() {
 				break
 			}
 		}
+		ncycle.Mul(ncycle, ncycle).Mod(ncycle, cc.N)
 	}
 	fmt.Println("pcycle = ", pcycle)
 	fmt.Println("ncycle = ", ncycle)
@@ -49,7 +58,8 @@ func main() {
 	//原坐标
 	Px := fromHex("9680241112d370b56da22eb535745d9e314380e568229e09f7241066003bc471")
 	Py := fromHex("ddac2d377f03c201ffa0419d6596d10327d6c70313bb492ff495f946285d8f38")
-	s := big.NewInt(999)
+	s := big.NewInt(1)
+	Px, Py = cc.GetQ(s)
 	fmt.Println("原坐标：", s, Px, Py)
 	fmt.Println("-----------")
 	//根据pcycle计算坐标点x

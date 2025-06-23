@@ -5,6 +5,7 @@ import (
 	"math/big"
 )
 
+// https://en.wikipedia.org/wiki/Proth%27s_theorem
 func Proth(k, n int64) bool {
 	num := new(big.Int).Add(new(big.Int).Mul(big.NewInt(k), new(big.Int).Exp(big.NewInt(2), big.NewInt(n), nil)), big.NewInt(1)) //k*2^n+1
 	num_1 := big.NewInt(0).Sub(num, big.NewInt(1))                                                                               //k*2^n

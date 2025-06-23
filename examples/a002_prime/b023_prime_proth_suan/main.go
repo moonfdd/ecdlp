@@ -5,6 +5,8 @@ import (
 	"math/big"
 )
 
+// file:///D:/ee/%E4%B9%A6%E7%B1%8D/%E6%95%B0%E5%AD%A6/%E8%B5%84%E6%96%99/%E7%AE%97%E6%B3%95%E6%95%B0%E8%AE%BA.pdf
+// 145
 func Proth(k, n int64) bool {
 	num := new(big.Int).Add(new(big.Int).Mul(big.NewInt(k), new(big.Int).Exp(big.NewInt(2), big.NewInt(n), nil)), big.NewInt(1)) //k*2^n+1
 	num_1 := big.NewInt(0).Sub(num, big.NewInt(1))                                                                               //k*2^n
@@ -18,11 +20,15 @@ func Proth(k, n int64) bool {
 }
 
 func main() {
+	// if true {
+	// 	fmt.Println(big.NewInt(0).Exp(big.NewInt(3), big.NewInt(6), big.NewInt(13)))
+	// 	return
+	// }
 
 	if true {
 		primeCount := 0
 		for n := int64(2); n < 7; n++ {
-			for k := int64(1); k <= 1<<n+1; k += 1 {
+			for k := int64(1); k < (1 << n); k += 2 {
 				if k%3 == 0 {
 					continue
 				}
@@ -34,7 +40,7 @@ func main() {
 					//fmt.Printf("正确The number N = %d * 2^%d + 1 is prime: %v %v %v\n", k, n, isPrime, rr, aa)
 				} else {
 					fmt.Printf("错误The number N = %d * 2^%d + 1 is prime: %v %v %v\n", k, n, r1, r2, aa)
-					return
+					//return
 				}
 
 				if r1 {
