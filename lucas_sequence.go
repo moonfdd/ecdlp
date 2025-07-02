@@ -60,6 +60,24 @@ func (that *LucasParam) GetUnAndVnMod(k *big.Int, N *big.Int) (*big.Int, *big.In
 	return ansU, ansV
 }
 
+func (that *LucasParam) TwoUAndTwoVMod(u *big.Int, v *big.Int, N *big.Int) (*big.Int, *big.Int) {
+	d := big.NewInt(0).Exp(that.P, big.NewInt(2), nil)
+	d.Sub(d, big.NewInt(0).Lsh(that.Q, 2))
+	d.Mod(d, N)
+
+	twoU := big.NewInt(0)
+	twoV := big.NewInt(0)
+
+	twoU.Mul(u, v)
+	twoV.Mul(d, u).Mul(twoV, u).Add(twoV, big.NewInt(0).Exp(v, big.NewInt(2), nil))
+	twoV.Mul(twoV, big.NewInt(0).ModInverse(big.NewInt(2), N))
+
+	twoU.Mod(twoU, N)
+	twoV.Mod(twoV, N)
+
+	return twoU, twoV
+}
+
 func (that *LucasParam) GetUnAndVn(k *big.Int) (*big.Int, *big.Int) {
 	k = big.NewInt(0).Set(k)
 	if k.Cmp(big.NewInt(0)) == 0 {

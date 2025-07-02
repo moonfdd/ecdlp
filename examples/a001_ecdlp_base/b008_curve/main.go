@@ -13,11 +13,6 @@ import (
 
 // https://www.secg.org/sec2-v2.pdf
 func main() {
-	if true {
-		fmt.Println(big.NewInt(0).Exp(big.NewInt(62), big.NewInt(3), big.NewInt(79)))
-		return
-	}
-
 	//自定义椭圆曲线y^2 ≡ x^3+7 mod 79
 	if true {
 		cc := &ecdlp.CurveParams{}

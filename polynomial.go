@@ -5,7 +5,7 @@ import (
 	"math/big"
 )
 
-// a^n mod e,n
+// polynomial^n mod modPolynomial,modN
 func PolynomialExpMod(polynomial []*big.Int, n *big.Int, modPolynomial []*big.Int, modN *big.Int) (ans []*big.Int) {
 	b := big.NewInt(0).Add(n, big.NewInt(0))
 	ans = []*big.Int{big.NewInt(1)}
@@ -22,7 +22,7 @@ func PolynomialExpMod(polynomial []*big.Int, n *big.Int, modPolynomial []*big.In
 	return
 }
 
-// a*b mod n
+// polynomial1*polynomial2 mod modN
 func PolynomialMul(polynomial1 []*big.Int, polynomial2 []*big.Int, modN *big.Int) (ans []*big.Int) {
 	ans = make([]*big.Int, (len(polynomial1)-1)+(len(polynomial2)-1)+1)
 	for i := 0; i < len(ans); i++ {
@@ -45,7 +45,7 @@ func PolynomialMul(polynomial1 []*big.Int, polynomial2 []*big.Int, modN *big.Int
 	return
 }
 
-// a+b mod n
+// polynomial1+polynomial2 mod modN
 func PolynomialAdd(polynomial1 []*big.Int, polynomial2 []*big.Int, modN *big.Int) (ans []*big.Int) {
 	//假设第1个多项式的长度大于第2个多项式的长度
 	if len(polynomial1) < len(polynomial2) {
@@ -69,14 +69,14 @@ func PolynomialAdd(polynomial1 []*big.Int, polynomial2 []*big.Int, modN *big.Int
 	return
 }
 
-// a-b mod n
+// polynomial1-polynomial2 mod modN
 func PolynomialSub(polynomial1 []*big.Int, polynomial2 []*big.Int, modN *big.Int) (ans []*big.Int) {
 	polynomial2 = PolynomialNeg(polynomial2, modN)
 	ans = PolynomialAdd(polynomial1, polynomial2, modN)
 	return
 }
 
-// a%b mod n,b的最高次项必须是1
+// polynomial%modPolynomial mod modN,其中modPolynomial的最高次项必须是1
 func PolynomialMod(polynomial []*big.Int, modPolynomial []*big.Int, modN *big.Int) (ans []*big.Int) {
 	zero := big.NewInt(0)
 	if len(modPolynomial) == 1 {
@@ -115,7 +115,7 @@ func PolynomialMod(polynomial []*big.Int, modPolynomial []*big.Int, modN *big.In
 	return
 }
 
-// -a mod n
+// -polynomial mod modN
 func PolynomialNeg(polynomial []*big.Int, modN *big.Int) (ans []*big.Int) {
 	ans = polynomialCopy(polynomial)
 	for i := 0; i < len(ans); i++ {
@@ -133,12 +133,16 @@ func polynomialCopy(polynomial []*big.Int) (ans []*big.Int) {
 	return
 }
 
-// gcd(a,b) mod n
+// gcd(polynomial1,polynomial2) mod modN
 func PolynomialGcd(polynomial1 []*big.Int, polynomial2 []*big.Int, modN *big.Int) (ans []*big.Int) {
 	if len(polynomial1) < len(polynomial2) {
 		polynomial1, polynomial2 = polynomial2, polynomial1
 	}
 	polynomial2 = polynomialCopy(polynomial2)
+	if len(polynomial2) == 1 && polynomial2[0].Cmp(big.NewInt(0)) == 0 {
+		ans = polynomialCopy(polynomial1)
+		return
+	}
 	for {
 		if len(polynomial2) == 1 {
 			if polynomial2[0].Cmp(big.NewInt(0)) == 0 {
