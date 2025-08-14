@@ -1,0 +1,78 @@
+package main
+
+import (
+	"fmt"
+	"math/big"
+)
+
+func Pocklington(q *big.Int, a *big.Int) *Solution {
+	if new(big.Int).Exp(a, new(big.Int).Div(new(big.Int).Sub(q, big.NewInt(1)), big.NewInt(2)), q).Cmp(big.NewInt(1)) != 0 {
+		return NewSolution(big.NewInt(0), big.NewInt(0), false)
+	}
+
+	a = new(big.Int).Sub(q, a)
+
+	Pr := func(r *big.Int) *big.Int {
+		zero := big.NewInt(0)
+		if r.Cmp(zero) >= 0 {
+			return new(big.Int).Mod(r, q)
+		}
+		return new(big.Int).Mod(new(big.Int).Sub(q, new(big.Int).Mod(new(big.Int).Neg(r), q)), q)
+	}
+
+	c := big.NewInt(1)
+	var NotSquare *big.Int
+	u := Pr(new(big.Int).Sub(q, big.NewInt(1)))
+	for {
+		NotSquare = new(big.Int).Mod(new(big.Int).Add(new(big.Int).Mul(c, c), new(big.Int).Mul(u, a)), q)
+		if new(big.Int).Exp(NotSquare, new(big.Int).Div(new(big.Int).Sub(q, big.NewInt(1)), big.NewInt(2)), q).Cmp(new(big.Int).Sub(q, big.NewInt(1))) == 0 {
+			break
+		}
+		c.Add(c, big.NewInt(1))
+	}
+
+	pow := new(big.Int).Div(new(big.Int).Sub(q, big.NewInt(1)), big.NewInt(4))
+	z := &Tuple{c, big.NewInt(1)}
+	y := &Tuple{big.NewInt(1), big.NewInt(0)}
+
+	mult := func(x, y *Tuple) *Tuple {
+		return &Tuple{
+			Pr(new(big.Int).Mod(new(big.Int).Add(new(big.Int).Mul(x.Item1, y.Item1), new(big.Int).Mul(x.Item2, new(big.Int).Mul(y.Item2, a))), q)),
+			Pr(new(big.Int).Mod(new(big.Int).Add(new(big.Int).Mul(x.Item1, y.Item2), new(big.Int).Mul(y.Item1, x.Item2)), q)),
+		}
+	}
+
+	for pow.Cmp(big.NewInt(0)) > 0 {
+		if new(big.Int).Mod(pow, big.NewInt(2)).Cmp(big.NewInt(0)) != 0 {
+			y = mult(y, z)
+		}
+		pow.Div(pow, big.NewInt(2))
+		z = mult(z, z)
+	}
+	tempG := new(big.Int).Exp(y.Item2, new(big.Int).Sub(q, big.NewInt(2)), q)
+	result := new(big.Int).Mod(new(big.Int).Mul(y.Item1, tempG), q)
+
+	return NewSolution(result, new(big.Int).Sub(q, result), true)
+}
+
+type Tuple struct {
+	Item1 *big.Int
+	Item2 *big.Int
+}
+
+type Solution struct {
+	Result       *big.Int
+	Complement   *big.Int
+	IsSuccessful bool
+}
+
+func NewSolution(result, complement *big.Int, isSuccessful bool) *Solution {
+	return &Solution{Result: result, Complement: complement, IsSuccessful: isSuccessful}
+}
+
+func main() {
+	q := big.NewInt(17)
+	a := big.NewInt(2)
+	solution := Pocklington(q, a)
+	fmt.Println(solution)
+}

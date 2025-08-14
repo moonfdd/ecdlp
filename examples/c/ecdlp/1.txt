@@ -1,0 +1,78 @@
+SEA(School Elkies Atkin)算法，对于二进制域效率较高的Satoh-FGH算法。
+
+https://eprint.iacr.org/2015/1022.pdf
+
+为了抗击Pollard-ρ攻击，所选取EC的阶#E(GF(q))的分解式中应该包含一个大的素数因子，目前应不小于160bit；
+为了抗击Weil对和Tate对的攻击，对于1≤k≤30，n不能除 （不宜选取超奇异椭圆曲线）；
+为了抗击Semaev-Smart-Satoh-Araki的攻击所选曲线的阶不能等于该曲线所定义的有限域的阶，即#E( )≠q（不宜选取异常椭圆曲线）；
+（4）对于二进制域GF( )的度m不宜为合数。Gaudry，Hess和Smart提出，若m有小约数l（l=4），存在比Pollard's rho算法更快求解ECDLP的方法。
+从上述椭圆曲线的安全性来看，如果曲线的阶充分大，平方根攻击如Shanks's baby-step gaint-step或Pollard's ρ方法就不太有效，要能抗击Pohlig-hellman攻击
+
+file:///D:/ee/%E4%B9%A6%E7%B1%8D/%E6%95%B0%E5%AD%A6/%E8%B5%84%E6%96%99/7.30%20%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8.pdf
+
+112 MOV攻击、 Anomalous攻击、 Weil下降攻击
+126 SSSA约化 
+130 Weil下降攻击
+140 GHS方法
+155 Anomalous攻击
+163指标计算方法
+
+D:\ee\书籍\数学\资料\t椭圆曲线资料\SM2椭圆曲线公钥密码算法.pdf 
+31
+ECDLP现有攻击方法有：
+• Pohlig-Hellman方法：设l是n的最大素因子，则算法复杂度为O(l1/2)；
+• BSGS方法：时间复杂度与空间复杂度均为(πn/2)1/2；
+• Pollard 方法：算法复杂度为(πn/2)1/2；
+• 并行Pollard方法：设r为并行处理器个数，算法复杂度降至(πn/2)1/2/r；
+• MOV-方法：把超奇异椭圆曲线及具有相似性质的曲线的ECDLP降到Fq的小扩域上的离散对数
+问题（亚指数级计算复杂度算法）；
+• 异常曲线离散对数求解方法：对异常曲线(#E(Fp)=p的曲线)的有效攻击方法(多项式级计算复
+杂度算法)；
+• GHS-方法：利用Weil下降技术求解扩张次数为合数的二元扩域上椭圆曲线离散对数问题，
+将ECDLP转化为超椭圆曲线离散对数问题，而求解高亏格的超椭圆曲线离散对数存在亚指数
+级计算复杂度算法。
+
+39
+椭圆曲线阶的计算
+SEA算法和Satoh算法。
+
+57 71 90
+椭圆曲线6大参数取值
+
+D:\ee\书籍\数学\资料\t椭圆曲线资料\椭圆曲线及其在密码学的应用.pdf
+129 MOV攻击
+135 点的计算 大步小步法
+143 点的计算 Schoof算法
+152 点的计算  Elkies素数
+159 点的计算  Atkin素数
+160 点的计算  SEA算法
+
+D:\ee\书籍\数学\资料\t椭圆曲线资料\椭圆曲线密码体制的研究与实现.pdf
+23 大步小步法、MOV攻击、weil descent攻击、Pollard’s rho算法
+
+《椭圆曲线离散对数问题》
+80 MOV攻击和FR攻击
+94 SSSA攻击
+
+108 小步大步法
+118 Pollard方法
+128 Pollard lambda方法
+157 指数计算
+
+《椭圆曲线公钥密码导引》
+
+https://ece.uwaterloo.ca/~p24gill/Projects/Cryptography/Pollard's_Rho_and_Lambda/Project.pdf  有Pollard lambda算法
+https://www.math.auckland.ac.nz/~sgal018/ascona.pdf
+https://eprint.iacr.org/2015/605.pdf
+https://www.cnblogs.com/zhuowangy2k/p/12245622.html
+https://inria.hal.science/hal-02427655v1/document
+https://cy2sec.comm.eng.osaka-u.ac.jp/ecc2018/slide/slide_school/1117-1%20ecc2018-lecture%20Mehdi.pdf
+https://munin.uit.no/bitstream/handle/10037/1091/thesis.pdf?sequence=5 有Pollard lambda算法
+https://enricflorit.com/assets/ECDLP/ECDLP_notes.pdf 有Pollard lambda算法
+https://mtrimoska.com/slides/ECC_lecture_Trimoska2.pdf 各种
+https://www.cryptrec.go.jp/exreport/cryptrec-ex-1029-2001.pdf 各种
+https://scispace.com/pdf/a-note-on-an-ecdlp-based-pow-model-53v7i9gq6u.pdf
+https://pdfs.semanticscholar.org/fc88/89bb155219cf163f1935e47447fecbb7837a.pdf 有Pollard lambda算法4.1
+https://www.hyperelliptic.org/tanja/vortraege/35minutes.pdf
+
+Pollard-kangaroo ecdlp 8完成

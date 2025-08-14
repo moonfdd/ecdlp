@@ -1,0 +1,78 @@
+1324
+1324 2334
+1324 3324 2324
+1324 3324 2334 2334
+1324 2334 2324 3324 2324
+1324 3334 2334 2324 2324 3334
+
+[
+	{
+		"_id": "6329849fa996210007fe5dae",
+		"created_by": "2ce8e43145c041b3986720191f9e2c94",
+		"created_at": 1663665311,
+		"updated_at": 1678932984,
+		"is_archived": 0,
+		"title": "备货-贺州到巴马高速公路都安段微波车检器58套",
+		"project_id": "632983c9bf2c3c00086eae50",
+		"properties": {
+			"assignee": "160bd8c455a44370a177c87149ee27a8",
+			"start": {
+				"date": 1663603200,
+				"with_time": 0
+			},
+			"due": {
+				"date": 1665331199,
+				"with_time": 0
+			},
+			"dute": {
+				"_id": "5ea28e64c66aca03ea270e85",
+				"text": "售前",
+				"data_source_id": "5ea28e3fa579bf74f4a7b494"
+			},
+			"participant": [
+				"2ce8e43145c041b3986720191f9e2c94",
+				"15134dfb68ac4232b238d322030acfac",
+				"30f65c87db624dd0882016fc1e6ae949",
+				"4ae329c912fd43bf96707bcc85511fb9",
+				"f139a47c857e4c01b0d06db7ed9cfc69",
+				"cbf45cbabdeb4969a8120d383af78d2f",
+				"57e5e116e07d4e34af67d5da6099825f",
+				"ba3e8331253145688a8c20f589511c63",
+				"d411b1d6f53c47669c877d1918b42fcc"
+			],
+			"workload": {
+				"estimated": {},
+				"reported_total": 0
+			},
+			"priority": null,
+			"attachment": [
+				"632984d0eaf57200078b5998"
+			],
+			"tag": [
+				{
+					"_id": "5b7cc760c4221820ca6b3fd1",
+					"name": "销售",
+					"mode_id": "5b7cc760c4221820ca6b3fc9",
+					"color": "#f5aac8"
+				}
+			],
+			"desc": "[{\"type\":\"paragraph\",\"key\":\"RtHQi\",\"children\":[{\"text\":\"合同正在走流程，项目部因为工期需要要求10月15日货到现场，请朱经理重点关注。\"}]}]"
+		},
+		"state_type": 3,
+		"identifier": "7174",
+		"completed_at": 1666055951,
+		"derived_ids": [],
+		"task_state": {
+			"name": "已完成",
+			"type": 3,
+			"description": "任务已经完成",
+			"_id": "5b7cc760c4221820ca6b3d71"
+		},
+		"task_type": {
+			"_id": "5b7cc760c4221820ca6b3edf",
+			"name": "工时任务"
+		},
+		"pre_task_ids": [],
+		"post_task_ids": []
+	}
+]

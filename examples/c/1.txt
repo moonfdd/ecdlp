@@ -1,0 +1,89 @@
+https://zhuanlan.zhihu.com/p/105902706?utm_id=0 计算数论1：素性检验
+
+https://en.wikipedia.org/wiki/Adleman%E2%80%93Pomerance%E2%80%93Rumely_primality_test 年利率，未写
+https://sourceforge.net/projects/mpzaprcl/files/latest/download
+https://en.wikipedia.org/wiki/Elliptic_curve_primality 椭圆曲线，未写
+https://en.wikipedia.org/wiki/Pocklington_primality_test
+https://en.wikipedia.org/wiki/Proth%27s_theorem 普罗思定理 
+https://en.wikipedia.org/wiki/Quadratic_Frobenius_test 二次弗罗贝尼乌斯检验，未定
+https://eprint.iacr.org/2005/462.pdf
+
+https://www.bilibili.com/video/BV1WV4y1P7cb/?spm_id_from=333.337.search-card.all.click&vd_source=25bced4af8c6d5f851758632d0ca8444
+45:30乘法逆元
+
+http://ntheory.org/pseudoprimes.html  表格
+
+
+
+https://eprint.iacr.org/2008/459 纳对 RSA 攻击的一种变体
+https://eprint.iacr.org/2008/433 关于二次余数的差异
+https://eprint.iacr.org/2008/398.pdf  在大特征有限域上生成亏格两条超椭圆曲线
+https://eprint.iacr.org/2008/215 奇特征三次扩展域上椭圆曲线密码系统的GHS攻击实现
+https://eprint.iacr.org/2007/343.pdf 更新了验证椭圆曲线的标准
+https://eprint.iacr.org/2007/285  求解 MRHS 线性方程
+https://eprint.iacr.org/2007/112 扩展域上超椭圆曲线雅可比行列式的分解攻击
+https://eprint.iacr.org/2005/462 简化的二次弗罗贝尼乌斯素性检验
+https://eprint.iacr.org/2001/102.pdf 扩展的二次弗罗贝尼乌斯原始性 测试平均情况误差估计
+https://eprint.iacr.org/2001/096 在有限域上构造具有给定数量的点的椭圆曲线
+https://eprint.iacr.org/1997/014 广义 Diffie-Hellman 模复合并不弱于因式分解
+
+https://www.arvindguptatoys.com/arvindgupta/primenumbers.pdf
+
+https://eprint.iacr.org/
+https://arxiv.org/
+https://www.aminer.org/
+https://www.zhangqiaokeyan.com/?from=01-107-zqky-2082 张桥科研
+https://scholar.google.com/
+
+素性检测
+https://os.unil.cloud.switch.ch/tind-customer-epfl/dacc7250-2e49-4c10-b10e-b4e5cbaa47f7?response-content-disposition=attachment%3B%20filename%2A%3DUTF-8%27%27EPFL-ARTICLE-149717.pdf&response-content-type=application%2Fpdf&AWSAccessKeyId=ded3589a13b4450889b2f728d54861a6&Expires=1706660552&Signature=3F10Ss%2BWfVK2ru9oQh7ZxzC2hhE%3D
+
+http://math.colgate.edu/~integers/pvols.html
+
+
+
+https://en.wikipedia.org/wiki/Sieve_of_Atkin
+https://en.wikipedia.org/wiki/Sieve_of_Pritchard
+https://en.wikipedia.org/wiki/Sieve_of_Sundaram 完成
+https://en.wikipedia.org/wiki/Wheel_factorization
+
+问题：系统讲解素性检验，质因数分解的方法，离散对数求解方法，椭圆曲线离散对数求解方法的中文书籍有哪些？
+
+以下是一些与素性检验、质因数分解、离散对数求解以及椭圆曲线离散对数求解方法相关的书籍推荐：
+
+1. "Introduction to the Theory of Numbers" by Ivan Niven, Herbert S. Zuckerman, and Hugh L. Montgomery - 这本书是经典的数字理论教材，其中包含了关于素性检验和质因数分解的基本原理和算法。
+
+2. "Prime Numbers: A Computational Perspective" by Richard Crandall and Carl Pomerance - 该书从计算机角度讲述了素数的重要性，并介绍了一些常见的质因数分解方法。
+
+3. "A Course in Number Theory and Cryptography" by Neal Koblitz - 这本书结合了数字理论和密码学的知识，涵盖了离散对数问题以及其在公钥密码学中的应用。
+
+4. "The Arithmetic of Elliptic Curves" by Joseph H. Silverman - 该书详细介绍了椭圆曲线理论，包括离散对数问题在椭圆曲线上的求解方法。
+
+5. "Guide to Elliptic Curve Cryptography" by Darrel Hankerson, Alfred J. Menezes, and Scott Vanstone - 这本书深入探讨了椭圆曲线密码学，包括椭圆曲线离散对数问题及其在加密算法中的应用。
+
+这些书籍涵盖了素性检验、质因数分解、离散对数求解和椭圆曲线离散对数求解方法的基本原理和应用。根据你的兴趣和需求，选择适合自己的读物进行学习。
+
+以下是一些中文书籍推荐，涵盖了素性检验、质因数分解、离散对数求解以及椭圆曲线离散对数求解方法：
+
+1. 《数字密码学与椭圆曲线密码学》 - 王晓东、张伟主编。该书系统介绍了数字密码学的基本理论和应用，包括质因数分解、离散对数问题和椭圆曲线密码学等内容。
+
+2. 《应用密码学：算法、协议与实现》 - Douglas R. Stinson著，李国杰等译。这本书全面介绍了应用密码学的基础知识，包括素性检验、质因数分解和离散对数求解等方面。
+
+3. 《数字证书技术与应用》 - 傅育石著。该书详细讲解了数字证书技术的原理和应用，在其中也涉及到质因数分解、离散对数问题以及椭圆曲线密码学等相关内容。
+
+4. 《计算机安全与保密技术》 - 钱芳著。该书介绍了计算机安全的基本概念和常见技术，其中包含了素性检验、质因数分解以及离散对数求解等内容。
+
+这些中文书籍对素性检验、质因数分解、离散对数求解和椭圆曲线离散对数求解方法进行了详细讲解，适合中文读者学习和理解相关知识。根据个人需求和兴趣选择适合自己的读物进行深入学习。
+
+file:///D:/ee/%E4%B9%A6%E7%B1%8D/%E6%95%B0%E5%AD%A6/%E8%B5%84%E6%96%99/[%E7%8E%B0%E4%BB%A3%E5%AF%86%E7%A0%81%E5%AD%A6%E7%90%86%E8%AE%BA%E4%B8%8E%E5%AE%9E%E8%B7%B5].(%E7%8E%B0%E4%BB%A3%E5%AF%86%E7%A0%81%E5%AD%A6%E7%90%86%E8%AE%BA%E4%B8%8E%E5%AE%9E%E8%B7%B5).%E6%AF%9B%E6%96%87%E6%B3%A2.%E6%89%AB%E6%8F%8F%E7%89%88.pdf 146 求模为合数的平方根
+
+D:\ee\书籍\数学\资料\t椭圆曲线资料\应用密码学手册_Zh_CN.pdf
+127 n-1的因子分解的素性测试
+128 雅可比和测试
+129 椭圆曲线素性测试
+
+
+
+https://cjhb.site/Files.php/Books/Number%20Theory/
+
+https://zhuanlan.zhihu.com/p/707417487 椭圆曲线求素数

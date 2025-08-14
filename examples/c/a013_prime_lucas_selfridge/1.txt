@@ -1,0 +1,128 @@
+package main
+
+import (
+	"fmt"
+	"math/big"
+)
+
+func modExp(base, exponent, modulus *big.Int) *big.Int {
+	result := big.NewInt(1)
+	one := big.NewInt(1)
+	zero := big.NewInt(0)
+	for exponent.Cmp(zero) > 0 {
+		if new(big.Int).And(exponent, one).Cmp(one) == 0 {
+			result.Mod(new(big.Int).Mul(result, base), modulus)
+		}
+		exponent.Rsh(exponent, 1)
+		base.Mod(new(big.Int).Mul(base, base), modulus)
+	}
+	return result
+}
+
+func isLucasProbablePrime(n *big.Int) bool {
+	if n.Cmp(big.NewInt(2)) == -1 { // 如果 n < 2
+		return false
+	}
+	if n.Cmp(big.NewInt(2)) == 0 { // 如果 n = 2
+		return true
+	}
+	if new(big.Int).Mod(n, big.NewInt(2)).Cmp(big.NewInt(0)) == 0 { // 如果 n 为偶数
+		return false
+	}
+
+	// 选择 a，这里选择2作为例子
+	a := big.NewInt(2)
+
+	// 计算 d 和 m
+	m := 1
+	d := new(big.Int).Sub(n, big.NewInt(1))
+	two := big.NewInt(2)
+	zero := big.NewInt(0)
+	for new(big.Int).Mod(d, two).Cmp(zero) == 0 {
+		d.Rsh(d, 1) // 右移一位，相当于除以2
+		m++
+	}
+
+	// 检查条件
+	x := modExp(a, d, n)
+	if x.Cmp(big.NewInt(1)) == 0 {
+		return true
+	}
+	for i := 0; i < m-1; i++ {
+		if x.Cmp(new(big.Int).Sub(n, big.NewInt(1))) == 0 {
+			return true
+		}
+		x = modExp(x, two, n)
+	}
+
+	return false
+}
+
+func main() {
+	// n := big.NewInt(561) // 要测试的数字
+	// if isLucasProbablePrime(n) {
+	// 	fmt.Println(n, "可能是素数")
+	// } else {
+	// 	fmt.Println(n, "不是素数")
+	// }
+
+	num := big.NewInt(0)
+	num.SetString("2", 10)
+	rightLimit := big.NewInt(0)
+	rightLimit.SetString("10000", 10)
+	count := 0
+	for ; num.Cmp(rightLimit) <= 0; num.Add(num, big.NewInt(1)) {
+		r1 := isLucasProbablePrime(num)
+		r2 := MillerRabbinA(big.NewInt(2), num)
+		r3 := num.ProbablyPrime(0)
+		if r1 != r2 || r1 != r3 {
+			fmt.Println("检测错误", num, r1, r2, r3)
+			count++
+		}
+	}
+	fmt.Println("错误次数", count)
+
+}
+
+func MillerRabbinA(a, num *big.Int) bool {
+	if num.Cmp(big.NewInt(1)) == 0 {
+		return false
+	}
+	if num.Cmp(big.NewInt(2)) == 0 {
+		return true
+	}
+	if big.NewInt(0).And(num, big.NewInt(1)).Cmp(big.NewInt(0)) == 0 {
+		return false
+	}
+	t := big.NewInt(0)
+	u := big.NewInt(0).Sub(num, big.NewInt(1))
+	for big.NewInt(0).And(u, big.NewInt(1)).Cmp(big.NewInt(0)) == 0 {
+		t.Add(t, big.NewInt(1))
+		u.Rsh(u, 1)
+	}
+	x := big.NewInt(0).Exp(a, u, num)
+	var xtemp *big.Int
+	for i := big.NewInt(0); i.Cmp(t) < 0; i.Add(i, big.NewInt(1)) {
+		xtemp = big.NewInt(0).Exp(x, big.NewInt(2), num)
+		if xtemp.Cmp(big.NewInt(1)) == 0 && x.Cmp(big.NewInt(1)) != 0 && x.Cmp(big.NewInt(0).Sub(num, big.NewInt(1))) != 0 {
+			return false
+		}
+		x = xtemp
+	}
+	if x.Cmp(big.NewInt(1)) != 0 {
+		return false
+	}
+	return true
+}
+
+// Lucas 拟素性检验算法是一种素数检验算法，它通过验证特定的条件来决定一个数是否为素数。以下是该算法的步骤：
+
+// 1. 设 \(n\) 是一个奇数且 \(n > 1\)。
+
+// 2. 选择一个整数 \(a\)，使得 \(1 < a < n\)。
+
+// 3. 如果存在整数 \(d\) 和 \(m\) 使得 \(d\) 是奇数且 \(n - 1 = 2^m \times d\) 满足以下条件：
+//    - \(a^d \equiv 1 \mod n\)
+//    - 对于所有 \(i\) 满足 \(0 \leq i < m\)，\(a^{2^i \times d} \not\equiv -1 \mod n\)
+
+// 4. 如果条件3成立，则 \(n\) 可能是素数，否则，\(n\) 不是素数。

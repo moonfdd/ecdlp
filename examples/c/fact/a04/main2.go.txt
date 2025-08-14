@@ -1,0 +1,94 @@
+package main
+
+import (
+	"crypto/rand"
+	"fmt"
+	"math/big"
+)
+
+// f(x) = (x*x + c) mod n
+func f(x, c, n *big.Int) *big.Int {
+	xx := new(big.Int).Mul(x, x)
+	xx.Add(xx, c)
+	xx.Mod(xx, n)
+	return xx
+}
+
+// 计算两个big.Int的绝对差值
+func absSub(a, b *big.Int) *big.Int {
+	diff := new(big.Int).Sub(a, b)
+	return diff.Abs(diff)
+}
+
+// 计算a和b的最大公约数
+func gcd(a, b *big.Int) *big.Int {
+	return new(big.Int).GCD(nil, nil, a, b)
+}
+
+// 生成范围在[1, n-1]的大随机数
+func randInt(n *big.Int) (*big.Int, error) {
+	one := big.NewInt(1)
+	max := new(big.Int).Sub(n, one)
+	r, err := rand.Int(rand.Reader, max)
+	if err != nil {
+		return nil, err
+	}
+	r.Add(r, one)
+	return r, nil
+}
+
+func PollardRho(x *big.Int) (*big.Int, error) {
+	if x.Cmp(big.NewInt(2)) < 0 {
+		return nil, fmt.Errorf("input must be >= 2")
+	}
+
+	s := big.NewInt(0)
+	t := big.NewInt(0)
+	c, err := randInt(x)
+	if err != nil {
+		return nil, err
+	}
+
+	step := 0
+	goal := 1
+	val := big.NewInt(1)
+	// mod := new(big.Int).Set(x)
+	one := big.NewInt(1)
+
+	for {
+		goal <<= 1 // goal *= 2
+		s.Set(t)
+		val.SetInt64(1)
+
+		for step = 1; step <= goal; step++ {
+			t = f(t, c, x)
+			diff := absSub(t, s)
+
+			// val = val * diff mod x
+			val.Mul(val, diff)
+			val.Mod(val, x)
+
+			if step%127 == 0 {
+				d := gcd(val, x)
+				if d.Cmp(one) == 1 && d.Cmp(x) == -1 {
+					return d, nil
+				}
+			}
+		}
+
+		d := gcd(val, x)
+		if d.Cmp(one) == 1 && d.Cmp(x) == -1 {
+			return d, nil
+		}
+	}
+}
+
+func main() {
+	N := big.NewInt(18848997157) // 测试数
+	factor, err := PollardRho(N)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	fmt.Printf("A nontrivial factor of %s is %s\n", N.String(), factor.String())
+}

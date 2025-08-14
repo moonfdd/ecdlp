@@ -1,0 +1,221 @@
+package main
+
+import (
+	"fmt"
+	"math/big"
+
+	"github.com/moonfdd/ecdlp"
+)
+
+func mpz_lucas_prp1(n, p, q *big.Int) bool {
+	index := big.NewInt(0)
+	j := big.NewInt(0)
+	index.Set(n)
+	//    long int d = p*p - 4*q;
+	d := big.NewInt(0)
+	d.Mul(p, p)
+	d.Sub(d, big.NewInt(0).Mul(q, big.NewInt(4)))
+	// (p0p1)^2-4p1^3-4P0^3*P2+18P0P1P2-27P2^2
+	//1+4+4-18-27=-36
+	d = big.NewInt(-36)
+
+	if d.Cmp(big.NewInt(0)) == 0 {
+		panic("Does not produce a proper Lucas sequence")
+	}
+	if n.Cmp(big.NewInt(2)) < 0 {
+		return false
+	}
+	if n.Cmp(big.NewInt(2)) == 0 {
+		return true
+	}
+	if n.Bit(0) == 0 {
+		return false
+	}
+
+	if n.Cmp(big.NewInt(5)) > 0 && big.NewInt(0).Mod(n, big.NewInt(5)).Cmp(big.NewInt(0)) == 0 {
+		return false
+	}
+
+	j.Set(ecdlp.Jacobi(d, n)) //.Neg(j)
+	j.Neg(j)
+	index.Add(index, j)
+
+	// ll := &ecdlp.LucasParam{p, q}
+	ll := ecdlp.HigherOrderLucasSequence{Coefficients: []*big.Int{p, q, big.NewInt(1)}}
+	u, _ := ll.GetUnAndVnMod(index, big.NewInt(0).Set(n))
+	if u.Cmp(big.NewInt(0)) == 0 {
+		return true
+	} else {
+		return false
+	}
+
+}
+func mpz_lucas_prp5(n, p, q *big.Int) bool {
+	// index := big.NewInt(0)
+	// index.Set(n)
+	// //    long int d = p*p - 4*q;
+	// d := big.NewInt(0)
+	// d.Mul(p, p)
+	// d.Sub(d, big.NewInt(0).Mul(q, big.NewInt(4)))
+
+	// if d.Cmp(big.NewInt(0)) == 0 {
+	// 	panic("Does not produce a proper Lucas sequence")
+	// }
+	if n.Cmp(big.NewInt(2)) < 0 {
+		return false
+	}
+	if n.Cmp(big.NewInt(2)) == 0 {
+		return true
+	}
+	if n.Bit(0) == 0 {
+		return false
+	}
+
+	ll := &ecdlp.LucasParam{p, q}
+	_, v := ll.GetUnAndVnMod(n, n)
+	pmodn := big.NewInt(0).Mod(p, n)
+	if v.Cmp(pmodn) == 0 {
+		return true
+	} else {
+		return false
+	}
+
+}
+
+func fromHex(s string) *big.Int {
+	if s == "" {
+		return big.NewInt(0)
+	}
+	r, ok := new(big.Int).SetString(s, 16)
+	if !ok {
+		panic("invalid hex in source file: " + s)
+	}
+	return r
+}
+func main() {
+	if false {
+		fmt.Println(fromHex("fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f"))
+		fmt.Println(fromHex("fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141"))
+		return
+	}
+	if false {
+		coefficients := make([]*big.Int, 100)
+		for i := 0; i < len(coefficients); i++ {
+			if i%2 == 0 {
+				coefficients[i] = big.NewInt(1)
+			} else {
+				coefficients[i] = big.NewInt(-1)
+			}
+		}
+		const N = 6
+		c := coefficients[0:N]
+		h := ecdlp.HigherOrderLucasSequence{Coefficients: c}
+		// fmt.Println(h.GetUnAndVnMod(big.NewInt(10000000), big.NewInt(5)))
+		// return
+		count := 0
+		for i := big.NewInt(2); i.Cmp(big.NewInt(100000)) <= 0; i.Add(i, big.NewInt(1)) {
+			// for i := big.NewInt(159400000); i.Cmp(big.NewInt(10000000000)) <= 0; i.Add(i, big.NewInt(1)) {
+			if big.NewInt(0).Mod(i, big.NewInt(100000)).Cmp(big.NewInt(0)) == 0 {
+				fmt.Println(i, "=:", i)
+			}
+			_, v := h.GetUnAndVnMod(i, i)
+			isPrime1 := v.Cmp(big.NewInt(1)) == 0
+			isPrime2 := i.ProbablyPrime(0)
+			if isPrime1 != isPrime2 {
+				fmt.Println("错误：", i, "isPrime1:", isPrime1, "isPrime2:", isPrime2)
+				count++
+			} else {
+				if isPrime1 {
+					// fmt.Println("素数：：", i)
+				}
+			}
+			// fmt.Println(i, u, v)
+		}
+		fmt.Println("测试成功", count)
+		return
+	}
+	if true {
+		coefficients := make([]*big.Int, 500)
+		for i := 0; i < len(coefficients); i++ {
+			if i%2 == 0 {
+				coefficients[i] = big.NewInt(1)
+			} else {
+				coefficients[i] = big.NewInt(-1)
+			}
+		}
+		for N := 2; N <= 500; N += 1 {
+			fmt.Println("N:", N)
+			c := coefficients[0:N]
+			h := ecdlp.HigherOrderLucasSequence{Coefficients: c}
+			k := big.NewInt(0)
+			k.SetString("13407807929942597099574024998205846127429294960603147749430244270389527193005087002084253735130200377185477318450090306135904455919285040173416176828872431", 10)
+			start := big.NewInt(0)
+			start.Sub(k, big.NewInt(1))
+			end := big.NewInt(0)
+			end.Add(k, big.NewInt(1))
+			for i := start; i.Cmp(end) <= 0; i.Add(i, big.NewInt(1)) {
+				u, v := h.GetUnAndVnMod(i, k)
+				// fmt.Println(i, u, v)
+				v.Sub(v, big.NewInt(1)).Mod(v, k)
+				if i.Cmp(k) == 0 {
+					v.Sub(v, big.NewInt(1)).Mod(v, k)
+				}
+				gcd := v.GCD(nil, nil, v, k)
+				if gcd.Cmp(big.NewInt(1)) != 0 && gcd.Cmp(k) != 0 {
+					fmt.Println(i, gcd)
+					return
+				}
+				gcd = u.GCD(nil, nil, u, k)
+				if gcd.Cmp(big.NewInt(1)) != 0 && gcd.Cmp(k) != 0 {
+					fmt.Println(i, gcd)
+					return
+				}
+			}
+		}
+		fmt.Println("没有")
+		return
+	}
+	if true {
+		errCount := 0
+		for n := big.NewInt(2); n.Cmp(big.NewInt(100)) <= 0; n.Add(n, big.NewInt(1)) {
+			r := mpz_lucas_prp1(n, big.NewInt(1), big.NewInt(-1))
+			// r := mpz_lucas_prp5(n, big.NewInt(1), big.NewInt(-1))
+			r2 := n.ProbablyPrime(0)
+			if r != r2 {
+				errCount++
+				fmt.Println("错误", n, r, r2)
+			} else {
+				if r {
+					//fmt.Println("素数", n)
+				}
+			}
+		}
+		fmt.Println("错误次数", errCount)
+	}
+	fmt.Println("")
+}
+
+// 错误： 182 isPrime1: true isPrime2: false
+// 错误： 25201 isPrime1: true isPrime2: false
+// 错误： 54289 isPrime1: true isPrime2: false
+// 错误： 63618 isPrime1: true isPrime2: false
+// 错误： 194390 isPrime1: true isPrime2: false
+// 错误： 750890 isPrime1: true isPrime2: false
+// 错误： 804055 isPrime1: true isPrime2: false
+// 错误： 1889041 isPrime1: true isPrime2: false
+// 错误： 2487941 isPrime1: true isPrime2: false
+// 错误： 3542533 isPrime1: true isPrime2: false
+// 错误： 3761251 isPrime1: true isPrime2: false
+// 错误： 6829689 isPrime1: true isPrime2: false
+// 错误： 12032021 isPrime1: true isPrime2: false
+// 错误： 12649337 isPrime1: true isPrime2: false
+// 错误： 18002881 isPrime1: true isPrime2: false
+// 错误： 22586257 isPrime1: true isPrime2: false
+// 错误： 28250321 isPrime1: true isPrime2: false
+// 错误： 68355001 isPrime1: true isPrime2: false
+// 错误： 72374401 isPrime1: true isPrime2: false
+// 错误： 74458790 isPrime1: true isPrime2: false
+// 错误： 79351441 isPrime1: true isPrime2: false
+// 错误： 100595461 isPrime1: true isPrime2: false
+// 错误： 116406374 isPrime1: true isPrime2: false
+// 错误： 123872111 isPrime1: true isPrime2: false

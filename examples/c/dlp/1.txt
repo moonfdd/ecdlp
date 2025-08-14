@@ -1,0 +1,32 @@
+离散对数 https://en.wikipedia.org/wiki/Discrete_logarithm	 
+婴儿步 巨人步、波拉德罗、波拉德袋鼠、波利格-赫尔曼、指数演算、功能场筛
+
+https://en.wikipedia.org/wiki/Baby-step_giant-step
+https://en.wikipedia.org/wiki/Pollard%27s_rho_algorithm_for_logarithms
+https://en.wikipedia.org/wiki/Pollard%27s_kangaroo_algorithm
+https://en.wikipedia.org/wiki/Pohlig%E2%80%93Hellman_algorithm
+https://en.wikipedia.org/wiki/Index_calculus_algorithm
+https://en.wikipedia.org/wiki/Function_field_sieve
+https://en.wikipedia.org/wiki/General_number_field_sieve
+
+file:///D:/ee/%E4%B9%A6%E7%B1%8D/%E6%95%B0%E5%AD%A6/%E8%B5%84%E6%96%99/7.30%20%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8.pdf
+115
+在1978年 Pohlig-Hellman利用中国剩余定理证明:合数n阶群上DLP求解难度↔最大素因子p阶群上DLP求解难度
+116
+Pollard-p
+117
+Pollard-入
+
+D:\ee\书籍\数学\资料\t椭圆曲线资料\椭圆曲线及其在密码学的应用.pdf
+120 大步小步法
+121 Pollard-p
+124 pohlig-hellman
+125 指标计算法
+
+D:\ee\书籍\数学\资料\t椭圆曲线资料\应用密码学手册_Zh_CN.pdf
+91 小步大步法
+92 求离散对数的pollard's rho
+94 pohlig-hellman
+96 指数积分算法
+
+https://hasegawaazusa.github.io/ecc-note.html#pohlig-hellman-%E6%94%BB%E5%87%BB  dlp攻击
