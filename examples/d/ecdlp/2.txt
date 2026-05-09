@@ -1,0 +1,40 @@
+y^2=x^3 解决
+
+Pohling-Hellman，分解n
+
+MOV算法 P82
+
+n=p，P88 代数数论方法SSA
+Semaev方法，方法未知
+
+4a^3+27b^2==0 要转dlp https://crypto.stackexchange.com/questions/61302/how-to-solve-this-ecdlp
+
+Pollard lambda（kangaroo） 算法（袋鼠算法） 区间算法
+
+
+而目前最接近这一路线的，就是：
+Semaev summation polynomials（Semaev 多项式）
+以及围绕它的 Gaudry / Diem / Joux / Petit / etc. 一系列代数化尝试
+
+2. Semaev 多项式到底是什么地位？
+简单说：
+Semaev 多项式是“把椭圆曲线上的点和关系转成多变量多项式方程组”的工具。
+它给人的希望是：
+把 ECDLP 化成大量代数方程求解
+如果能高效找到“分解关系”
+就可能构造 factor base + relation collection
+从而走向某种 elliptic-curve index calculus
+所以从“概念上”讲：
+Semaev 多项式确实是经典方向里最像“可能导致一般 ECDLP 突破”的路线之一。
+
+2. Gröbner basis 求解瓶颈
+许多基于 Semaev 的方案最后都会落到：
+求解大规模稀疏多项式系统
+依赖 Gröbner basis、F4/F5、XL 等代数求解技术
+问题在于：
+对一般大素域曲线，这些系统通常并没有表现出足够好的“低复杂度结构”
+早期一些乐观启发式，经常依赖 first fall degree 等假设
+后续研究表明，这些假设在很多情况下并不可靠
+所以：
+目前的共识更接近于：
+Semaev 路线很有研究价值，但离“破解一般 prime-field ECDLP”的实用算法还很远。

@@ -76,3 +76,24 @@ https://pdfs.semanticscholar.org/fc88/89bb155219cf163f1935e47447fecbb7837a.pdf �
 https://www.hyperelliptic.org/tanja/vortraege/35minutes.pdf
 
 Pollard-kangaroo ecdlp 8完成
+
+https://arxiv.org/pdf/2508.14011 secp__k1
+https://arxiv.org/pdf/2302.03650  特定曲线破解
+https://arxiv.org/pdf/2202.06584 局部逆映射攻击
+https://arxiv.org/pdf/2010.15543 迹=1的攻击
+https://eprint.iacr.org/2024/924 同源火山
+https://eprint.iacr.org/2022/1573 小指数ecdlp
+https://eprint.iacr.org/2020/1315 索引演算
+https://eprint.iacr.org/2019/800 二次域攻击
+https://eprint.iacr.org/2018/795 最小重量码
+https://eprint.iacr.org/2018/307 曲线构造，抵抗MOV
+https://eprint.iacr.org/2016/924 启发式攻击，没有实际攻击
+https://eprint.iacr.org/2015/986 比特巧合挖掘算法的破解
+https://eprint.iacr.org/2015/984 推导复杂度下限。
+https://eprint.iacr.org/2015/310 求和多项式
+https://eprint.iacr.org/2013/660 Hasse 原则
+https://eprint.iacr.org/2012/199 指标攻击分解问题（PDP） 非素数域
+https://eprint.iacr.org/2003/058 构造两条曲线
+
+
+

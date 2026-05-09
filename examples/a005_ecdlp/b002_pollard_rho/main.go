@@ -29,6 +29,10 @@ func main() {
 		fmt.Println("入参：", i, qx.Text(10), qy.Text(10))
 		res := PollardRho(cc, qx, qy)
 		fmt.Println("结果：", res)
+		if res.Cmp(i) != 0 {
+			fmt.Println("失败")
+			// return
+		}
 		fmt.Println("--------------------")
 	}
 
