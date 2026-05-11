@@ -9,14 +9,6 @@ import (
 
 func main() {
 	if true {
-		a := big.NewInt(0).Exp(big.NewInt(2), big.NewInt(26), big.NewInt(79))
-		fmt.Println(a.Text(10))
-
-		a = big.NewInt(0).Exp(big.NewInt(2), big.NewInt(0).Mul(a, big.NewInt(3)), big.NewInt(79))
-		fmt.Println(a.Text(10))
-		return
-	}
-	if true {
 		cc := &ecdlp.CurveParams{}
 		cc.A = big.NewInt(0)
 		cc.B = big.NewInt(0)

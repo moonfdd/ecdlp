@@ -219,3 +219,80 @@ func PolynomialString(polynomial []*big.Int) (ans string) {
 	}
 	return
 }
+
+// PolynomialCompose 计算 f(g(x)) mod (modPolynomial, modN)
+// f: 多项式 f 的系数，从常数项到最高次项
+// g: 多项式 g 的系数，从常数项到最高次项
+// modPolynomial: 模多项式（最高次项系数为1）
+// modN: 系数模数（一般为素数）
+func PolynomialCompose2(f []*big.Int, g []*big.Int, modPolynomial []*big.Int, modN *big.Int) []*big.Int {
+	if len(f) == 0 {
+		return []*big.Int{}
+	}
+
+	// 处理最高次项
+	// 如果最高次项系数为0，则结果初始化为零多项式
+	highestCoeff := new(big.Int).Set(f[len(f)-1])
+	if highestCoeff.Cmp(big.NewInt(0)) == 0 {
+		// 如果最高次项系数为0，从次高次项开始
+		if len(f) == 1 {
+			return []*big.Int{big.NewInt(0)}
+		}
+		// 递归调用处理去掉最高次项的多项式
+		return PolynomialCompose(f[:len(f)-1], g, modPolynomial, modN)
+	}
+
+	// 初始化结果为最高次项系数 * g(x)
+	result := make([]*big.Int, len(g))
+	for i := 0; i < len(g); i++ {
+		result[i] = new(big.Int).Mul(highestCoeff, g[i])
+		result[i].Mod(result[i], modN)
+	}
+	result = PolynomialMod(result, modPolynomial, modN)
+
+	// 从次高次项开始到常数项
+	for i := len(f) - 2; i >= 0; i-- {
+		// 先乘 g
+		result = PolynomialMul(result, g, modN)
+		result = PolynomialMod(result, modPolynomial, modN)
+
+		// 再加当前的系数 a_i
+		coeff := new(big.Int).Set(f[i])
+		if coeff.Cmp(big.NewInt(0)) != 0 {
+			coeffPoly := []*big.Int{coeff}
+			result = PolynomialAdd(result, coeffPoly, modN)
+			result = PolynomialMod(result, modPolynomial, modN)
+		}
+	}
+
+	return result
+}
+
+// PolynomialCompose 计算 f(g(x)) mod (modPolynomial, modN)
+// 注意：本项目中的多项式系数顺序是“最高次项在前，常数项在后”。
+// 例如：
+//
+//	[]{1,0}   表示 x
+//	[]{1,1}   表示 x+1
+func PolynomialCompose(f []*big.Int, g []*big.Int, modPolynomial []*big.Int, modN *big.Int) []*big.Int {
+	if len(f) == 0 {
+		return []*big.Int{big.NewInt(0)}
+	}
+
+	// Horner法：
+	// 若 f(x)=a0 x^n + a1 x^(n-1) + ... + an
+	// 则 f(g)=(((a0)g + a1)g + a2 ... )g + an
+	result := []*big.Int{new(big.Int).Set(f[0])}
+
+	for i := 1; i < len(f); i++ {
+		// result = result * g
+		result = PolynomialMul(result, g, modN)
+		result = PolynomialMod(result, modPolynomial, modN)
+
+		// result = result + f[i]
+		result = PolynomialAdd(result, []*big.Int{new(big.Int).Set(f[i])}, modN)
+		result = PolynomialMod(result, modPolynomial, modN)
+	}
+
+	return result
+}

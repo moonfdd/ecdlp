@@ -9,6 +9,72 @@ import (
 
 // https://www.secg.org/sec2-v2.pdf
 func main() {
+	if true {
+		f := []*big.Int{big.NewInt(1), big.NewInt(0), big.NewInt(17230), big.NewInt(22699)}
+		g := []*big.Int{big.NewInt(0), big.NewInt(0), big.NewInt(1), big.NewInt(23796)}
+		m := []*big.Int{big.NewInt(1), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0)}
+		ans := ecdlp.PolynomialCompose(f, g, m, big.NewInt(23981))
+		fmt.Println(ecdlp.PolynomialString(ans))
+
+		// f := []*big.Int{big.NewInt(1), big.NewInt(0), big.NewInt(0)} //f(x)=x
+		// g := []*big.Int{big.NewInt(1), big.NewInt(1)}                // g(x)=x+1
+		// m := []*big.Int{big.NewInt(1), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0)}
+		// ans := ecdlp.PolynomialCompose(f, g, m, big.NewInt(23981))
+		// fmt.Println(ecdlp.PolynomialString(ans))
+		return
+	}
+	if true {
+		cc := &ecdlp.CurveParams{}
+		cc.A = big.NewInt(17230)
+		cc.B = big.NewInt(22699)
+		cc.P = big.NewInt(23981)
+		cc.N = big.NewInt(109)
+		cc.H = big.NewInt(1)
+		cc.Gx = big.NewInt(1451)
+		cc.Gy = big.NewInt(1362)
+		// mapa := make(map[string]int)
+		// maps := make(map[string]int)
+		// sl := make([]string, 0)
+		// ssl := make([]string, 0)
+		for s := big.NewInt(1); s.Cmp(cc.P) < 0; s.Add(s, big.NewInt(1)) {
+			Rx, Ry := cc.GetQ(s)
+			// ss := big.NewInt(0).Mul(Rx, big.NewInt(0).ModInverse(Ry, cc.P))
+			// ss.Mod(ss, cc.P)
+			// ss.Mul(ss, big.NewInt(0).ModInverse(big.NewInt(22), cc.P))
+			// ss.Mod(ss, cc.P)
+
+			sx := big.NewInt(0)
+			sx.Mul(Rx, big.NewInt(0).ModInverse(cc.Gx, cc.P))
+			sx.Mod(sx, cc.P)
+
+			sy := big.NewInt(0)
+			sy.Mul(Ry, big.NewInt(0).ModInverse(cc.Gy, cc.P))
+			sy.Mod(sy, cc.P)
+
+			fmt.Println(s, Rx.Text(10), Ry, "----", sx, sy)
+			// if mapa[Rx.Text(10)] == 0 {
+			// 	sl = append(sl, Rx.Text(10))
+			// }
+			// mapa[Rx.Text(10)]++
+
+			// if maps[ss.Text(10)] == 0 {
+			// 	ssl = append(ssl, ss.Text(10))
+			// }
+			// maps[ss.Text(10)]++
+		}
+		// fmt.Println(mapa)
+		// fmt.Println(sl)
+
+		// fmt.Println(maps)
+		// sort.Slice(ssl, func(i, j int) bool {
+		// 	a1, _ := strconv.Atoi(ssl[i])
+		// 	a2, _ := strconv.Atoi(ssl[j])
+		// 	return a1 <= a2
+		// })
+		// fmt.Println(ssl)
+		// return
+		return
+	}
 	//自定义椭圆曲线y^2 ≡ x^3+7 mod 79
 	if true {
 		cc := &ecdlp.CurveParams{}

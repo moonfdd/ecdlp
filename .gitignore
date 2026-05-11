@@ -58,3 +58,4 @@ releases/
 .idea/
 
 examples/c/
+examples/a005_ecdlp/b006_mov/

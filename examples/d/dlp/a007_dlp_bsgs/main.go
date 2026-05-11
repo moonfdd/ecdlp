@@ -21,6 +21,15 @@ func main() {
 
 	}
 	if true {
+		// fmt.Println(big.NewInt(0).ModInverse(big.NewInt(19), big.NewInt(7)))
+		// return
+		n := big.NewInt(19)
+		p := big.NewInt(7)
+		r := Bsgs(p, big.NewInt(3), n)
+		fmt.Println(r)
+		return
+	}
+	if true {
 		a := big.NewInt(2)
 		p := big.NewInt(29)
 		for b := big.NewInt(0); b.Cmp(p) < 0; b.Add(b, big.NewInt(1)) {
